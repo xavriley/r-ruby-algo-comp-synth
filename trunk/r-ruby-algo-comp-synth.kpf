@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Komodo Project File - DO NOT EDIT -->
 <project id="c767740e-897a-4efb-9500-087c9a0a3e82" kpf_version="4" name="r-ruby-algo-comp-synth.kpf">
+<command cwd="/home/znmeb/r-ruby-algo-comp-synth" doNotOpenOutputWindow="0" env="" id="25e28842-717a-4adb-a353-cc26afbda82e" idref="c767740e-897a-4efb-9500-087c9a0a3e82" insertOutput="0" keyboard_shortcut="" name="lyx ConcertoForComputer.lyx" operateOnSelection="0" parseOutput="0" parseRegex="" runIn="command-output-window" showParsedOutputList="0">
+lyx ConcertoForComputer.lyx</command>
 <preference-set idref="c767740e-897a-4efb-9500-087c9a0a3e82">
   <boolean id="import_live">1</boolean>
 </preference-set>
