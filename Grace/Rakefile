@@ -48,17 +48,17 @@ file "/usr/local/bin/premake" => [ "Premake-3.5", "/usr/bin/lua" ] do
   cd ".."
 end
 
-desc "Lua"
+desc "Install Lua"
 file "/usr/bin/lua" do
   sh "sudo emerge -uvDN lua"
 end
 
-desc "CSound"
+desc "Install CSound"
 file "/usr/bin/csound" do
   sh "sudo emerge -uvDN csound"
 end
 
-desc "chicken"
+desc "Install chicken"
 file "/usr/bin/chicken" do
   sh "sudo emerge -uvDN chicken"
 end
