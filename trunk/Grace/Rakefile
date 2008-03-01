@@ -25,8 +25,9 @@ file "grace/build/linux/build/bin/grace" => [
     "/usr/bin/csound",
     "/usr/bin/chicken"
   ] do
-  cd "grace/build/linux"
+  cd "grace/build"
   sh "premake --verbose --csound --target gnu"
+  cd "linux"
   sh "make"
   cd "../../.."
 end
