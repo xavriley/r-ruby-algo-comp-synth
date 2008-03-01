@@ -1,0 +1,59 @@
+desc "Get latest source from SVN repository"
+file "grace" do
+  command = "svn co"
+  url = "http://commonmusic.svn.sf.net/svnroot/commonmusic/trunk/grace"
+  target = "grace"
+  sh "#{command} #{url} #{target}"
+end
+
+desc "Build Grace"
+file "grace/build/linux/build/bin/grace" => [ 
+    "grace", 
+    "juce", 
+    "/usr/local/bin/premake", 
+    "/usr/bin/csound",
+    "/usr/bin/chicken"
+  ] do
+  cd "grace/build/linux"
+  sh "premake --verbose --csound --target gnu"
+  sh "make"
+  cd "../../.."
+end
+
+desc "Download Juce"
+file "juce" do
+  sh "wget http://internap.dl.sourceforge.net/sourceforge/juce/juce_1_45.zip"
+  sh "unzip juce_1_45.zip"
+  cp "juce_Config.h", "juce"
+end
+
+desc "Install Juce"
+file "zork" => [ "juce" ] do
+  cd "juce/build/linux"
+  sh "make"
+  cd "../../.."
+end
+
+desc "Download Premake"
+file "Premake-3.5" do
+  sh "wget http://prdownloads.sf.net/premake/premake-src-3.5.zip"
+  sh "unzip premake-src-3.5.zip"
+end
+
+desc "Install Premake"
+file "/usr/local/bin/premake" => [ "Premake-3.5" ] do
+  cd "Premake-3.5"
+  sh "make"
+  sh "sudo ln -sf #{Dir.getwd}/bin/premake /usr/local/bin/premake"
+  cd ".."
+end
+
+desc "CSound"
+file "/usr/bin/csound" do
+  sh "sudo emerge -uvDN csound"
+end
+
+desc "chicken"
+file "/usr/bin/chicken" do
+  sh "sudo emerge -uvDN chicken"
+end
