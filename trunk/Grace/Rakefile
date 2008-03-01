@@ -3,7 +3,9 @@ require 'find'
 CLOBBER.include(
   'grace', 
   'juce',
-  'Premake-3.5'
+  'Premake-3.5',
+  'juce_1_45.zip',
+  'premake-src-3.5.zip'
 )
 
 desc "Get latest source from SVN repository"
@@ -18,7 +20,7 @@ end
 desc "Build Grace"
 file "grace/build/linux/build/bin/grace" => [ 
     "grace", 
-    "juce", 
+    "juce/bin/libjuce.a", 
     "/usr/local/bin/premake", 
     "/usr/bin/csound",
     "/usr/bin/chicken"
@@ -39,7 +41,7 @@ end
 desc "Install Juce"
 file "juce/bin/libjuce.a" => [ "juce" ] do
   cd "juce/build/linux"
-  sh "make Config=Release"
+  sh "make CONFIG=Release"
   cd "../../.."
 end
 
