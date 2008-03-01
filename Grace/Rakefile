@@ -28,9 +28,9 @@ file "juce" do
 end
 
 desc "Install Juce"
-file "zork" => [ "juce" ] do
+file "juce/bin/libjuce.a" => [ "juce" ] do
   cd "juce/build/linux"
-  sh "make"
+  sh "make Config=Release"
   cd "../../.."
 end
 
@@ -41,11 +41,16 @@ file "Premake-3.5" do
 end
 
 desc "Install Premake"
-file "/usr/local/bin/premake" => [ "Premake-3.5" ] do
+file "/usr/local/bin/premake" => [ "Premake-3.5", "/usr/bin/lua" ] do
   cd "Premake-3.5"
   sh "make"
   sh "sudo ln -sf #{Dir.getwd}/bin/premake /usr/local/bin/premake"
   cd ".."
+end
+
+desc "Lua"
+file "/usr/bin/lua" do
+  sh "sudo emerge -uvDN lua"
 end
 
 desc "CSound"
