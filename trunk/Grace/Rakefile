@@ -4,6 +4,7 @@ file "grace" do
   url = "http://commonmusic.svn.sf.net/svnroot/commonmusic/trunk/grace"
   target = "grace"
   sh "#{command} #{url} #{target}"
+  cp "grace-premake.lua", "grace/build/premake.lua"
 end
 
 desc "Build Grace"
