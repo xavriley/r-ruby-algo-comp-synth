@@ -14,9 +14,13 @@ file "grace" do
   url = "http://commonmusic.svn.sf.net/svnroot/commonmusic/trunk/grace"
   target = "grace"
   sh "#{command} #{url} #{target}"
-  cp "grace-premake.lua", "grace/build/premake.lua"
+  cp "premake.lua", "grace/build"
 end
 
+#JD = "--jucedir #{Dir.getwd}/juce"
+JD = ""
+#CD = "--chickendir /usr"
+CD = ""
 desc "Build Grace"
 file "grace/build/linux/build/bin/grace" => [ 
     "grace", 
@@ -25,9 +29,9 @@ file "grace/build/linux/build/bin/grace" => [
     "/usr/bin/csound",
     "/usr/bin/chicken"
   ] do
-  cd "grace/build"
-  sh "premake --verbose --csound --target gnu"
-  cd "linux"
+  cd "grace/build/linux"
+  cp "../premake.lua", "."
+  sh "premake --verbose #{JD} #{CD} --csound --target gnu"
   sh "make"
   cd "../../.."
 end
