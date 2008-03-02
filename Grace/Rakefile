@@ -17,22 +17,26 @@ file "grace" do
   cp "premake.lua", "grace/build"
 end
 
-#JD = "--jucedir #{Dir.getwd}/juce"
-JD = ""
-#CD = "--chickendir /usr"
-CD = ""
 desc "Build Grace"
-file "grace/build/linux/build/bin/grace" => [ 
-    "grace", 
-    "juce/bin/libjuce.a", 
-    "/usr/local/bin/premake", 
-    "/usr/bin/csound",
-    "/usr/bin/chicken"
-  ] do
+file "grace/build/linux/build/Release/Grace/bin/grace" => [ 
+  "grace", 
+  "juce/bin/libjuce.a", 
+  "/usr/local/bin/premake", 
+  "/usr/bin/csound",
+  "/usr/bin/chicken" ] do
   cd "grace/build/linux"
   cp "../premake.lua", "."
-  sh "premake --verbose #{JD} #{CD} --csound --target gnu"
+  sh "premake --verbose --csound --target gnu"
   sh "make"
+  cd "../../.."
+end
+
+desc "Install Grace"
+file "grace/build/linux/build/Release/Grace/lib" => [
+  "grace/build/linux/build/Release/Grace/bin/grace" ] do
+  cd "grace/build/linux"
+  cp "../install.sh", "."
+  sh "./install.sh all"
   cd "../../.."
 end
 
@@ -74,8 +78,17 @@ file "/usr/bin/csound" do
   sh "sudo emerge -uvDN csound"
 end
 
+desc "Install emacs"
+file "/usr/bin/emacs" do
+  sh "sudo emerge -uvDN emacs"
+end
+
 desc "Install chicken"
 file "/usr/bin/chicken" do
   sh "sudo emerge -uvDN chicken"
 end
 
+desc "Install slime"
+file "/usr/share/emacs/site-lisp/slime" do
+  sh "sudo emerge -uvDN slime"
+end
