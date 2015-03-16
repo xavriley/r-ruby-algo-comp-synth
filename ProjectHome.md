@@ -1,0 +1,1 @@
+This project contains R and Ruby software for algorithmic composition and synthesis of music. The emphasis is on microtonal and xentonal composition.
